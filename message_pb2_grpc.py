@@ -2,10 +2,10 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import contacts_pb2 as contacts__pb2
+import message_pb2 as message__pb2
 
 
-class ContactsStub(object):
+class FlowsMesssageStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,42 +14,42 @@ class ContactsStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.CreateContacts = channel.unary_unary(
-                '/users.Contacts/CreateContacts',
-                request_serializer=contacts__pb2.CreateContactsRequest.SerializeToString,
-                response_deserializer=contacts__pb2.CreateContactsResponse.FromString,
+        self.CreateMessage = channel.unary_unary(
+                '/message.FlowsMesssage/CreateMessage',
+                request_serializer=message__pb2.CreateFlowsMessageRequest.SerializeToString,
+                response_deserializer=message__pb2.CreateFlowsMessageResponse.FromString,
                 )
 
 
-class ContactsServicer(object):
+class FlowsMesssageServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def CreateContacts(self, request, context):
+    def CreateMessage(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_ContactsServicer_to_server(servicer, server):
+def add_FlowsMesssageServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CreateContacts': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateContacts,
-                    request_deserializer=contacts__pb2.CreateContactsRequest.FromString,
-                    response_serializer=contacts__pb2.CreateContactsResponse.SerializeToString,
+            'CreateMessage': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateMessage,
+                    request_deserializer=message__pb2.CreateFlowsMessageRequest.FromString,
+                    response_serializer=message__pb2.CreateFlowsMessageResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'users.Contacts', rpc_method_handlers)
+            'message.FlowsMesssage', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Contacts(object):
+class FlowsMesssage(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def CreateContacts(request,
+    def CreateMessage(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,8 +59,8 @@ class Contacts(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/users.Contacts/CreateContacts',
-            contacts__pb2.CreateContactsRequest.SerializeToString,
-            contacts__pb2.CreateContactsResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/message.FlowsMesssage/CreateMessage',
+            message__pb2.CreateFlowsMessageRequest.SerializeToString,
+            message__pb2.CreateFlowsMessageResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
